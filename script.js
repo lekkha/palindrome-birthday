@@ -136,12 +136,89 @@ function getNextPalindromeDate(date){
     }
 }
 
-var date = {
-    day:31,
-    month: 12,
-    year: 2024
+
+var bdayInput = document.querySelector('#bday-input');
+var showButton = document.querySelector('#show-btn');
+var ouputE = document.querySelector('#result'); 
+
+//e event object
+// function clickHandler(e){
+//     var bdayStr = bdayInput.value; 
+
+//     if(bdayStr !== ''){
+//         var listOfDates = bdayStr.split('-'); 
+//         var date = {
+//             day: Number(listOfDates[2]),
+//             month: Number(listOfDates[1]),
+//             year: Number(listOfDates[0]),
+//         };
+
+//         var dateStr = convertDateToString(date); 
+//         var list = checkAllFormatPalindrome(dateStr);
+//         var ispalindrome = false;
+
+//         for(let i=0; i<list.length; i++){
+//             if(list[i]){
+//                 ispalindrome = true; 
+//                 break; 
+//             }
+//         }
+
+//         if(!ispalindrome){
+//             const [ctr, nextDate] = getNextPalindromeDate(date);
+
+//             ouputE.innerText = `the next palindrome date is  ${nextDate.day} -${nextDate.month}-${nextDate.year} you missed by ${ctr} days.`;
+//         }
+//         else{
+//             ouputE.innerText = 'is plaind'
+//         }
+//     }
+
+    
+
+// }
+
+function clickHandler(e){
+    //get input 
+    var dateStr = bdayInput.value;
+
+
+    if(dateStr !== ''){
+        //JIS FORMAT MEIN DATE DALTE THEY US FORMAT MEIN LANE KI KOSHIS
+        var dateList = dateStr.split('-');
+        var date = {
+            day: dateList[2],
+            month: dateList[1],
+            year: dateList[0],
+        }
+
+        //now check is palindrome on the date 
+        //1 convert to string 
+        // var dateStr = convertDateToString(date);
+        //2 check all form palindrome 
+        var list = checkAllFormatPalindrome(date);
+        var ispalindrome = false; 
+
+        for(let i=0; i<list.length;i++){
+            var result = list[i]; 
+            if(result){
+                ispalindrome = true; 
+                break; 
+            }
+        }
+
+        if(ispalindrome){
+            ouputE.innerText = 'your bday is a plaindrome'; 
+        }
+        else{
+            const [ctr, nextDate] = getNextPalindromeDate(date); 
+            ouputE.innerText =`the nearest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed by ${ctr}`; 
+            
+        }
+
+
+    }
 }
 
-console.log(getNextPalindromeDate(date)); 
-
+showButton.addEventListener('click', clickHandler);
 
